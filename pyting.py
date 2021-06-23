@@ -31,7 +31,9 @@ def main():
     text = (text[random.randint(0 , len(text))].replace('\n' , '')).replace('"', '' , 2) 
     ww = 0
     tw = len(text)
-    time.sleep(1)
+    for i in range(-5  , 0):
+        os.system("title "+f"PyTing {abs(i)}")
+        time.sleep(.8)
     os.system("title "+"PyTing - start typing now")
     word = len(text.split())
     move(8 , 1)
@@ -80,7 +82,7 @@ def main():
 
 if __name__ == '__main__':
     while True:
-        x = input(Fore.YELLOW + 'Type \'y\' to start and \'n\' to end [y/n] : ')
+        x = input(Fore.RED + 'Type \'y\' to start and \'n\' to end [y/n] : ')
         if x.lower() == 'y':
             clear()
             main()
