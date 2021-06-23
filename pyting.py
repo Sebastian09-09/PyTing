@@ -33,12 +33,13 @@ def main():
     tw = len(text)
     for i in range(-5  , 0):
         os.system("title "+f"PyTing {abs(i)}")
+        print(str(abs(i)) , end='\r')
         time.sleep(.8)
     os.system("title "+"PyTing - start typing now")
     word = len(text.split())
-    move(8 , 1)
+    move(7 , 1)
     print(Fore.MAGENTA + text)
-    move(8 , 1)
+    move(7 , 1)
     n_text = {}
     start = time.time()
     i = 0
