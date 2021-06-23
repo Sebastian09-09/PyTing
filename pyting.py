@@ -12,7 +12,6 @@ def main():
     print(Fore.YELLOW + '''
 █▀█ █▄█ ▀█▀ █ █▄░█ █▀▀
 █▀▀ ░█░ ░█░ █ █░▀█ █▄█\n\nTest your Typing skills in the Terminal!!''')
-    os.system("title "+"PyTing")
     quotes = []
     with open('assets/quotes.txt') as f:
         x = f.readlines()
@@ -131,6 +130,7 @@ def main():
     print(f'-->Your Typing Speed is {word * 60 / total_time} WPM')
 
 if __name__ == '__main__':
+    os.system("title "+"PyTing")
     while True:
         x = input(Fore.RED + 'Type \'y\' to start and \'n\' to end [y/n] : ')
         if x.lower() == 'y':
@@ -138,5 +138,7 @@ if __name__ == '__main__':
             main()
             input(Fore.RED + 'press enter to continue ')
             WConio.clrscr()
+            os.system("title "+"PyTing")
+
         else:
             break
