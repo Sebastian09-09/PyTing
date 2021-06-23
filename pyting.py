@@ -6,6 +6,7 @@ import os
 import random
 init(convert=True)
 os.system('')
+
 def main():
     print(Style.DIM)
     print(Fore.YELLOW + '''
@@ -21,7 +22,8 @@ def main():
     text = random.choice(quotes)
     text1 = (text[random.randint(0 , len(text))].replace('\n' , '')).replace('"', '' , 2)
     text2 = (text[random.randint(0 , len(text))].replace('\n' , '')).replace('"', '' , 2)
-    text = text1 + ' ' +text2 #single text is too small
+    text3 = (text[random.randint(0 , len(text))].replace('\n' , '')).replace('"', '' , 2)
+    text = text1 + ' ' +text2 + ' ' +text3 #single text is too small
     ww = 0
     tw = len(text)
     cont = False
@@ -58,8 +60,8 @@ def main():
                     n_text[i] = f'`{key[0]}`'
                     ww += 1
                 
-                if i not in n_text:
-                    n_text[i] = key[0]
+                n_text[i] = key[0]
+
                 i += 1
                 if len(text) == i:
                     break
@@ -92,7 +94,8 @@ def main():
                     if text[i] == ' ':
                         sys.stdout.write(text[i])
                         sys.stdout.flush()
-                        cont = False
+                        n_text[i] = '~32~'
+                        cont = True
                         temp = []
                     
                     else:
