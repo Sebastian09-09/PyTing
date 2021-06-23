@@ -1,39 +1,42 @@
 import WConio2 as WConio
+from colorama import init, Fore, Back, Style
 import time
 import sys
-from os import system
-from colorama import init, Fore, Back, Style
+import os
 import random
 init(convert=True)
-print(Style.DIM)
-print(Fore.YELLOW + '''
-█▀█ █▄█ ▀█▀ █ █▄░█ █▀▀
-█▀▀ ░█░ ░█░ █ █░▀█ █▄█\n\nTest your Typing skills in the Terminal!!''')
-system("title "+"PyTing")
+os.system('')
 def move(y, x):
     print("\033[%d;%dH" % (y, x))
 
-quotes = []
-with open('assets/quotes.txt') as f:
-    x = f.readlines()
-    quotes.append(x)
-    
-print(Style.BRIGHT)
-time.sleep(1)
-system("title "+"PyTing - start typing now")
-text = random.choice(quotes)
-text = (text[random.randint(0 , len(text))].replace('\n' , ''))
-ww = 0
-tw = len(text)
-print(Fore.MAGENTA + text)
-word = len(text.split())
-move(7 , 1)
+def clear():
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+       os.system('clear')
 
 def main():
-    global ww
-    global tw
-    global word
-    global text
+    print(Style.DIM)
+    print(Fore.YELLOW + '''
+█▀█ █▄█ ▀█▀ █ █▄░█ █▀▀
+█▀▀ ░█░ ░█░ █ █░▀█ █▄█\n\nTest your Typing skills in the Terminal!!''')
+    os.system("title "+"PyTing")
+    quotes = []
+    with open('assets/quotes.txt') as f:
+        x = f.readlines()
+        quotes.append(x)
+        
+    print(Style.BRIGHT)
+    text = random.choice(quotes)
+    text = (text[random.randint(0 , len(text))].replace('\n' , ''))
+    ww = 0
+    tw = len(text)
+    time.sleep(1)
+    os.system("title "+"PyTing - start typing now")
+    word = len(text.split())
+    move(8 , 1)
+    print(Fore.MAGENTA + text)
+    move(8 , 1)
     n_text = {}
     start = time.time()
     i = 0
@@ -76,8 +79,14 @@ def main():
     print(Fore.MAGENTA + f'-->You made {ww} mistake/mistakes')
     print(f'-->You Scored {100 - ((ww/tw)*100)}%')
     print(f'-->Your Typing Speed is {word * 60 / total_time} WPM')
-    input(Fore.RED + 'Press ENTER to QUIT')
 
 if __name__ == '__main__':
-    main()
-    print(random())
+    while True:
+        x = input(Fore.YELLOW + 'Type \'y\' to start and \'n\' to end [y/n] : ')
+        if x.lower() == 'y':
+            clear()
+            main()
+            input(Fore.RED + 'press enter to continue')
+            clear()
+        else:
+            break
