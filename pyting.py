@@ -25,6 +25,7 @@ def main():
     ww = 0
     tw = len(text)
     cont = False
+    temp = []
     for i in range(-3  , 0):
         os.system("title "+f"PyTing {abs(i)}")
         print(str(abs(i)) , end='\r')
@@ -47,6 +48,7 @@ def main():
             if key[0] == ord(text[i]):
                 if text[i] == ' ':
                     cont = False
+                    temp = []
                 if cont == False:
                     sys.stdout.write(Fore.GREEN + key[1])
                     sys.stdout.flush()
@@ -70,12 +72,19 @@ def main():
                 print(Fore.GREEN , end='')
                 x = WConio.wherex()
                 WConio.gotoxy(x-1, y)
+                try:
+                    temp.remove(i-1)
+                except:
+                    pass
                 if i-1 in n_text:
                     try:
                         if n_text[i-1].startswith('~'):
                             cont = False
                     except:
                         pass
+
+                if temp != []:
+                    cont = True
                 i -= 1
                     
             else:
@@ -83,8 +92,8 @@ def main():
                     if text[i] == ' ':
                         sys.stdout.write(text[i])
                         sys.stdout.flush()
-                        n_text[i] = '~32~'
                         cont = False
+                        temp = []
                     
                     else:
                         sys.stdout.write(Fore.RED + text[i])
@@ -92,6 +101,7 @@ def main():
                         n_text[i] = f'~{key[0]}~'
                         ww += 1
                         cont = True
+                        temp.append(i)
 
                     i += 1
                     if len(text) == i:
