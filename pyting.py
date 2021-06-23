@@ -22,7 +22,7 @@ def main():
     text1 = (text[random.randint(0 , len(text))].replace('\n' , '')).replace('"', '' , 2)
     text2 = (text[random.randint(0 , len(text))].replace('\n' , '')).replace('"', '' , 2)
     text3 = (text[random.randint(0 , len(text))].replace('\n' , '')).replace('"', '' , 2)
-    text = text1 + ' ' +text2 + ' ' +text3 #single text is too small
+    text = 'abcdefghijk'#text1 + ' ' +text2 + ' ' +text3 #single text is too small
     ww = 0
     tw = len(text)
     cont = False
@@ -53,13 +53,13 @@ def main():
                 if cont == False:
                     sys.stdout.write(Fore.GREEN + key[1])
                     sys.stdout.flush()
+                    n_text[i] = key[0]
                 else:
                     sys.stdout.write(Fore.CYAN + key[1])
                     sys.stdout.flush()
                     n_text[i] = f'`{key[0]}`'
                     ww += 1
                 
-                n_text[i] = key[0]
 
                 i += 1
                 if len(text) == i:
