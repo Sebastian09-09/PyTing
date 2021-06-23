@@ -22,7 +22,7 @@ def main():
     text1 = (text[random.randint(0 , len(text))].replace('\n' , '')).replace('"', '' , 2)
     text2 = (text[random.randint(0 , len(text))].replace('\n' , '')).replace('"', '' , 2)
     text3 = (text[random.randint(0 , len(text))].replace('\n' , '')).replace('"', '' , 2)
-    text = 'abcdefghijk'#text1 + ' ' +text2 + ' ' +text3 #single text is too small
+    text = text1 + ' ' +text2 + ' ' +text3 #single text is too small
     ww = 0
     tw = len(text)
     cont = False
