@@ -28,7 +28,7 @@ def main():
         
     print(Style.BRIGHT)
     text = random.choice(quotes)
-    text = (text[random.randint(0 , len(text))].replace('\n' , ''))
+    text = (text[random.randint(0 , len(text))].replace('\n' , '')).replace('"', '' , 2) 
     ww = 0
     tw = len(text)
     time.sleep(1)
@@ -44,17 +44,15 @@ def main():
         try:
             key = WConio.getkey()
             if key == text[i]:
-                if text[i] == ' ':
-                    sys.stdout.write(Fore.GREEN + '_')
-                    sys.stdout.flush()
-                else:
-                    sys.stdout.write(Fore.GREEN + key)
-                    sys.stdout.flush()
+                sys.stdout.write(Fore.GREEN + key)
+                sys.stdout.flush()
+                
                 if i not in n_text:
                     n_text[i] = key
                 i += 1
                 if len(text) == i:
                         break
+                    
             else:
                 if text[i] == ' ':
                     n_text[i] = f'~{key}~'
@@ -77,7 +75,7 @@ def main():
         print(Back.RESET , end='')
     print()
     print(Fore.MAGENTA + f'-->You made {ww} mistake/mistakes')
-    print(f'-->You Scored {100 - ((ww/tw)*100)}%')
+    print(f'-->Accuracy {100 - ((ww/tw)*100)}%')
     print(f'-->Your Typing Speed is {word * 60 / total_time} WPM')
 
 if __name__ == '__main__':
