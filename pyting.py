@@ -6,15 +6,6 @@ import os
 import random
 init(convert=True)
 os.system('')
-def move(y, x):
-    print("\033[%d;%dH" % (y, x))
-
-def clear():
-    if os.name == 'nt':
-        os.system('cls')
-    else:
-       os.system('clear')
-
 def main():
     print(Style.DIM)
     print(Fore.YELLOW + '''
@@ -28,53 +19,98 @@ def main():
         
     print(Style.BRIGHT)
     text = random.choice(quotes)
-    text = (text[random.randint(0 , len(text))].replace('\n' , '')).replace('"', '' , 2) 
+    text1 = (text[random.randint(0 , len(text))].replace('\n' , '')).replace('"', '' , 2)
+    text2 = (text[random.randint(0 , len(text))].replace('\n' , '')).replace('"', '' , 2)
+    text = text1 + ' ' +text2 #single text is too small
     ww = 0
     tw = len(text)
-    for i in range(-5  , 0):
+    cont = False
+    for i in range(-3  , 0):
         os.system("title "+f"PyTing {abs(i)}")
         print(str(abs(i)) , end='\r')
         time.sleep(.8)
     os.system("title "+"PyTing - start typing now")
     word = len(text.split())
-    move(7 , 1)
+    WConio.gotoxy(0, 7)
     print(Fore.MAGENTA + text)
-    move(7 , 1)
+    WConio.gotoxy(0, 7)
     n_text = {}
     start = time.time()
     i = 0
     while True:
         try:
-            key = WConio.getkey()
-            if key == text[i]:
-                sys.stdout.write(Fore.GREEN + key)
-                sys.stdout.flush()
+            key = WConio.getch()
+
+            if key[0] == 27:
+                pass
+                
+            if key[0] == ord(text[i]):
+                if text[i] == ' ':
+                    cont = False
+                if cont == False:
+                    sys.stdout.write(Fore.GREEN + key[1])
+                    sys.stdout.flush()
+                else:
+                    sys.stdout.write(Fore.CYAN + key[1])
+                    sys.stdout.flush()
+                    n_text[i] = f'`{key[0]}`'
+                    ww += 1
                 
                 if i not in n_text:
-                    n_text[i] = key
+                    n_text[i] = key[0]
                 i += 1
                 if len(text) == i:
-                        break
+                    break
+
+            elif key[0] == 8 and i != 0 and text[i] != ' ':
+                x = WConio.wherex()
+                y = WConio.wherey()
+                WConio.gotoxy(x-1, y)
+                print(Fore.MAGENTA + text[i-1] , end='')
+                print(Fore.GREEN , end='')
+                x = WConio.wherex()
+                WConio.gotoxy(x-1, y)
+                if i-1 in n_text:
+                    try:
+                        if n_text[i-1].startswith('~'):
+                            cont = False
+                    except:
+                        pass
+                i -= 1
                     
             else:
-                if text[i] == ' ':
-                    n_text[i] = f'~{key}~'
-                    ww += 1
-                else:
-                    n_text[i] = f'~{key}~'
-                    ww += 1               
-                pass   
+                if i != 0:
+                    if text[i] == ' ':
+                        sys.stdout.write(text[i])
+                        sys.stdout.flush()
+                        n_text[i] = '~32~'
+                        cont = False
+                    
+                    else:
+                        sys.stdout.write(Fore.RED + text[i])
+                        sys.stdout.flush()
+                        n_text[i] = f'~{key[0]}~'
+                        ww += 1
+                        cont = True
+
+                    i += 1
+                    if len(text) == i:
+                        break
+
         except IndexError:
             break
     end = time.time()
     total_time = end - start
     print('\n')
     for i in n_text:
-        if n_text[i].startswith('~'):
-            print(Back.RED + n_text[i].replace('~', '' , 2) , end='')
-            
+        if str(n_text[i]).startswith('`'):
+            x = n_text[i].replace('`', '' , 2)
+            print(Back.CYAN + chr(int(x)) , end='')
+        elif str(n_text[i]).startswith('~'):
+            x = n_text[i].replace('~', '' , 2)
+            print(Back.RED + chr(int(x)) , end='')
         else:
-            print(Fore.GREEN + n_text[i] , end='')
+            print(Fore.GREEN + chr(int(n_text[i])) , end='')
         print(Back.RESET , end='')
     print()
     print(Fore.MAGENTA + f'-->You made {ww} mistake/mistakes')
@@ -85,9 +121,9 @@ if __name__ == '__main__':
     while True:
         x = input(Fore.RED + 'Type \'y\' to start and \'n\' to end [y/n] : ')
         if x.lower() == 'y':
-            clear()
+            WConio.clrscr()
             main()
-            input(Fore.RED + 'press enter to continue')
-            clear()
+            input(Fore.RED + 'press enter to continue ')
+            WConio.clrscr()
         else:
             break
