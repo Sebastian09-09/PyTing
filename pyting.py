@@ -13,7 +13,7 @@ def main():
 █▀█ █▄█ ▀█▀ █ █▄░█ █▀▀
 █▀▀ ░█░ ░█░ █ █░▀█ █▄█\n\nTest your Typing skills in the Terminal!!''')
     quotes = []
-    with open('assets/quotes.txt') as f:
+    with open('C:/Users/Vyoum Kaushal/Desktop/PyTing/assets/quotes.txt') as f:
         x = f.readlines()
         quotes.append(x)
         
@@ -50,6 +50,7 @@ def main():
                 if text[i] == ' ':
                     cont = False
                     temp = []
+
                 if cont == False:
                     sys.stdout.write(Fore.GREEN + key[1])
                     sys.stdout.flush()
