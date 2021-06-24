@@ -53,12 +53,16 @@ def main():
                 if cont == False:
                     sys.stdout.write(Fore.GREEN + key[1])
                     sys.stdout.flush()
-                    n_text[i] = key[0]
+                    
+
                 else:
                     sys.stdout.write(Fore.CYAN + key[1])
                     sys.stdout.flush()
                     n_text[i] = f'`{key[0]}`'
                     ww += 1
+
+                if i not in n_text:
+                    n_text[i] = key[0]
                 
 
                 i += 1
