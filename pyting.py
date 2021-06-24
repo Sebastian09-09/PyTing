@@ -66,7 +66,7 @@ def main():
                     sys.stdout.flush()
                     n_text[i] = f'`{key[0]}`'
                     ww += 1
-                    eww == 1
+                    eww += 1
 
                 if i not in n_text:
                     n_text[i] = key[0]
