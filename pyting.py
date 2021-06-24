@@ -65,7 +65,7 @@ def main():
                 if len(text) == i:
                     break
 
-            elif key[0] == 8 and i != 0 and text[i] != ' ':
+            elif key[0] == 8 and i != 0 and text[i] != ' ' and text[i-1] != ' ':
                 x = WConio.wherex()
                 y = WConio.wherey()
                 WConio.gotoxy(x-1, y)
@@ -89,7 +89,7 @@ def main():
                 i -= 1
                     
             else:
-                if i != 0:
+                if i != 0 and key[0] != 8:
                     if text[i] == ' ':
                         sys.stdout.write(text[i])
                         sys.stdout.flush()
@@ -111,6 +111,7 @@ def main():
 
         except IndexError:
             break
+
     end = time.time()
     total_time = end - start
     print('\n')
