@@ -13,7 +13,7 @@ def main():
 █▀█ █▄█ ▀█▀ █ █▄░█ █▀▀
 █▀▀ ░█░ ░█░ █ █░▀█ █▄█\n\nTest your Typing skills in the Terminal!!''')
     quotes = []
-    with open('/assets/quotes.txt') as f:
+    with open('Pyting/assets/quotes.txt') as f:
         x = f.readlines()
         quotes.append(x)
         
@@ -24,6 +24,7 @@ def main():
     text3 = (text[random.randint(0 , len(text))].replace('\n' , '')).replace('"', '' , 2)
     text = text1 + ' ' +text2 + ' ' +text3 #single text is too small
     ww = 0
+    eww = 0
     tw = len(text)
     cont = False
     temp = []
@@ -65,6 +66,7 @@ def main():
                     sys.stdout.flush()
                     n_text[i] = f'`{key[0]}`'
                     ww += 1
+                    eww == 1
 
                 if i not in n_text:
                     n_text[i] = key[0]
@@ -92,11 +94,13 @@ def main():
                     try:
                         if n_text[i-1].startswith('~'):
                             cont = False
+                            eww -= 1
                     except:
                         pass
 
                 if temp != []:
                     cont = True
+                    eww -= 1
                 i -= 1
                     
             else:
@@ -105,6 +109,8 @@ def main():
                         sys.stdout.write(text[i])
                         sys.stdout.flush()
                         n_text[i] = '~32~'
+                        ww += 1
+                        eww += 1
                         cont = True
                         temp.append(i)
                         t2 = time.time()
@@ -115,6 +121,7 @@ def main():
                         sys.stdout.flush()
                         n_text[i] = f'~{key[0]}~'
                         ww += 1
+                        eww += 1
                         cont = True
                         temp.append(i)
 
@@ -131,6 +138,7 @@ def main():
 
     total_time = end - start
     print('\n')
+    print(Fore.GREEN , end='')
     for i in n_text:
         if str(n_text[i]).startswith('`'):
             x = n_text[i].replace('`', '' , 2)
@@ -142,8 +150,10 @@ def main():
             print(Fore.GREEN + chr(int(n_text[i])) , end='')
         print(Back.RESET , end='')
     print()
-    print(Fore.MAGENTA + f'-->You made {ww} mistake/mistakes')
-    print(f'-->Accuracy {100 - ((ww/tw)*100)}%')
+    print(Fore.MAGENTA + f'-->You made {ww} mistake/mistakes without editing the word/words')
+    print(Fore.MAGENTA + f'-->You made {eww} mistake/mistakes with editing the word/words')
+    print(f'-->Accuracy without taking in count the edited words  ----> {100 - ((ww/tw)*100)}%')
+    print(f'-->Accuracy taking in count the edited words          ----> {100 - ((eww/tw)*100)}%')
     print(f'-->Your Typing Speed is {word * 60 / total_time} WPM')
     #print(wpm)
 
