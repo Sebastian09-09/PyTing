@@ -95,7 +95,7 @@ def main():
                         sys.stdout.flush()
                         n_text[i] = '~32~'
                         cont = True
-                        temp = []
+                        temp.append(i)
                     
                     else:
                         sys.stdout.write(Fore.RED + text[i])
