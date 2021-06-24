@@ -13,7 +13,7 @@ def main():
 █▀█ █▄█ ▀█▀ █ █▄░█ █▀▀
 █▀▀ ░█░ ░█░ █ █░▀█ █▄█\n\nTest your Typing skills in the Terminal!!''')
     quotes = []
-    with open('C:/Users/Vyoum Kaushal/Desktop/PyTing/assets/quotes.txt') as f:
+    with open('/assets/quotes.txt') as f:
         x = f.readlines()
         quotes.append(x)
         
@@ -27,6 +27,7 @@ def main():
     tw = len(text)
     cont = False
     temp = []
+    wpm = []
     for i in range(-3  , 0):
         os.system("title "+f"PyTing {abs(i)}")
         print(str(abs(i)) , end='\r')
@@ -37,9 +38,10 @@ def main():
     print(Fore.MAGENTA + text)
     WConio.gotoxy(0, 7)
     n_text = {}
-    start = time.time()
+    start = time.time() 
     i = 0
     while True:
+        t1 = time.time()
         try:
             key = WConio.getch()
 
@@ -50,6 +52,8 @@ def main():
                 if text[i] == ' ':
                     cont = False
                     temp = []
+                    t2 = time.time()
+                    wpm.append(float(t2-t1))
 
                 if cont == False:
                     sys.stdout.write(Fore.GREEN + key[1])
@@ -68,6 +72,8 @@ def main():
 
                 i += 1
                 if len(text) == i:
+                    t2 = time.time()
+                    wpm.append(float(t2-t1))
                     break
 
             elif key[0] == 8 and i != 0 and text[i] != ' ' and text[i-1] != ' ':
@@ -94,13 +100,15 @@ def main():
                 i -= 1
                     
             else:
-                if i != 0 and key[0] != 8:
+                if key[0] != 8:
                     if text[i] == ' ':
                         sys.stdout.write(text[i])
                         sys.stdout.flush()
                         n_text[i] = '~32~'
                         cont = True
                         temp.append(i)
+                        t2 = time.time()
+                        wpm.append(float(t2-t1))
                     
                     else:
                         sys.stdout.write(Fore.RED + text[i])
@@ -112,12 +120,15 @@ def main():
 
                     i += 1
                     if len(text) == i:
+                        t2 = time.time()
+                        wpm.append(float(t2-t1))
                         break
 
         except IndexError:
             break
 
     end = time.time()
+
     total_time = end - start
     print('\n')
     for i in n_text:
@@ -134,6 +145,7 @@ def main():
     print(Fore.MAGENTA + f'-->You made {ww} mistake/mistakes')
     print(f'-->Accuracy {100 - ((ww/tw)*100)}%')
     print(f'-->Your Typing Speed is {word * 60 / total_time} WPM')
+    #print(wpm)
 
 if __name__ == '__main__':
     os.system("title "+"PyTing")
