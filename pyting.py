@@ -13,7 +13,7 @@ def main():
 █▀█ █▄█ ▀█▀ █ █▄░█ █▀▀
 █▀▀ ░█░ ░█░ █ █░▀█ █▄█\n\nTest your Typing skills in the Terminal!!''')
     quotes = []
-    with open('Pyting/assets/quotes.txt') as f:
+    with open('assets/quotes.txt') as f:
         x = f.readlines()
         quotes.append(x)
         
@@ -24,11 +24,9 @@ def main():
     text3 = (text[random.randint(0 , len(text))].replace('\n' , '')).replace('"', '' , 2)
     text = text1 + ' ' +text2 + ' ' +text3 #single text is too small
     ww = 0
-    eww = 0
     tw = len(text)
     cont = False
     temp = []
-    wpm = []
     for i in range(-3  , 0):
         os.system("title "+f"PyTing {abs(i)}")
         print(str(abs(i)) , end='\r')
@@ -42,7 +40,6 @@ def main():
     start = time.time() 
     i = 0
     while True:
-        t1 = time.time()
         try:
             key = WConio.getch()
 
@@ -51,14 +48,23 @@ def main():
                 
             if key[0] == ord(text[i]):
                 if text[i] == ' ':
-                    cont = False
-                    temp = []
-                    t2 = time.time()
-                    wpm.append(float(t2-t1))
+                    if cont == False:
+                        sys.stdout.write(Fore.GREEN + key[1])
+                        sys.stdout.flush()
+                        if i not in n_text:
+                            n_text[i] = key[0]
+                        i += 1
+                        #cont = False
+                        temp = []
+                    
+                    #i += 1
 
-                if cont == False:
+                elif cont == False:
                     sys.stdout.write(Fore.GREEN + key[1])
                     sys.stdout.flush()
+                    if i not in n_text:
+                        n_text[i] = key[0]
+                    i += 1
                     
 
                 else:
@@ -66,19 +72,15 @@ def main():
                     sys.stdout.flush()
                     n_text[i] = f'`{key[0]}`'
                     ww += 1
-                    eww += 1
+                    if i not in n_text:
+                        n_text[i] = key[0]
+                    i += 1
 
-                if i not in n_text:
-                    n_text[i] = key[0]
-                
-
-                i += 1
+            
                 if len(text) == i:
-                    t2 = time.time()
-                    wpm.append(float(t2-t1))
                     break
 
-            elif key[0] == 8 and i != 0 and text[i] != ' ' and text[i-1] != ' ':
+            elif key[0] == 8 and i != 0 and text[i-1] != ' ':
                 x = WConio.wherex()
                 y = WConio.wherey()
                 WConio.gotoxy(x-1, y)
@@ -94,41 +96,42 @@ def main():
                     try:
                         if n_text[i-1].startswith('~'):
                             cont = False
-                            eww -= 1
                     except:
                         pass
 
                 if temp != []:
                     cont = True
-                    eww -= 1
                 i -= 1
                     
             else:
                 if key[0] != 8:
                     if text[i] == ' ':
-                        sys.stdout.write(text[i])
-                        sys.stdout.flush()
-                        n_text[i] = '~32~'
+                        n_text[i] = '!32!'
                         ww += 1
-                        eww += 1
-                        cont = True
-                        temp.append(i)
-                        t2 = time.time()
-                        wpm.append(float(t2-t1))
+                        
+                        """
+                        if cont == False:
+                            sys.stdout.write(text[i])
+                            sys.stdout.flush()
+                            n_text[i] = '~32~'
+                            ww += 1
+                            #eww += 1
+                            #cont = True
+                            temp.append(i)
+                            i += 1
+                        """
                     
                     else:
                         sys.stdout.write(Fore.RED + text[i])
                         sys.stdout.flush()
                         n_text[i] = f'~{key[0]}~'
                         ww += 1
-                        eww += 1
                         cont = True
                         temp.append(i)
+                        i += 1
 
-                    i += 1
+                    
                     if len(text) == i:
-                        t2 = time.time()
-                        wpm.append(float(t2-t1))
                         break
 
         except IndexError:
@@ -146,16 +149,16 @@ def main():
         elif str(n_text[i]).startswith('~'):
             x = n_text[i].replace('~', '' , 2)
             print(Back.RED + chr(int(x)) , end='')
+        elif str(n_text[i]).startswith('!'):
+            x = n_text[i].replace('!', '' , 2)
+            print(Back.BLUE + chr(int(x)) , end='')
         else:
             print(Fore.GREEN + chr(int(n_text[i])) , end='')
         print(Back.RESET , end='')
     print()
-    print(Fore.MAGENTA + f'-->You made {ww} mistake/mistakes without editing the word/words')
-    print(Fore.MAGENTA + f'-->You made {eww} mistake/mistakes with editing the word/words')
-    print(f'-->Accuracy without taking in count the edited words  ----> {100 - ((ww/tw)*100)}%')
-    print(f'-->Accuracy taking in count the edited words          ----> {100 - ((eww/tw)*100)}%')
+    print(Fore.MAGENTA + f'-->You made {ww} mistake/mistakes')
+    print(f'-->Accuracy  {100 - ((ww/tw)*100)}%')
     print(f'-->Your Typing Speed is {word * 60 / total_time} WPM')
-    #print(wpm)
 
 if __name__ == '__main__':
     os.system("title "+"PyTing")
